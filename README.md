@@ -1,66 +1,14 @@
-## Foundry
+## Problem
+Find the fee collected for a UniswapV3 LP Position by simulating a transaction, specifically, by invoking `collectFee` function of the `NonfungiblePositionManager` contract without actually modifying the state of the contract.
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+## Solution
+Create a function which make a low level call to the `collectFee` function and store the response received in a bytes memory variable. Using assembly, revert with those bytes.<br>
+The test contract makes a low level call to this function and if the success variable is false (which will be always the case), it logs the reponse data received.
 
-Foundry consists of:
-
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
-
-## Documentation
-
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
-
-```shell
-$ forge build
-```
-
-### Test
-
-```shell
-$ forge test
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
+## Running Tests
+```bash
+git clone https://github.com/ericselvig/mock-static-call.git
+cd mock-static-call
+npm install
+forge test
 ```
